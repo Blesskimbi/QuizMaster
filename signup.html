@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - QuizMaster</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body class="auth-page">
+  <div class="auth-container">
+    <div class="auth-branding">
+      <div class="auth-logo">Quiz<span>Master</span></div>
+      <div class="auth-grid-pattern"></div>
+    </div>
+
+
+
+
+    <div class="auth-form-container">
+      <div class="auth-form-card">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Choose your account type and start your journey with us.</p>
+
+
+
+
+        <div class="account-type-selection">
+          <button class="account-type-btn active" type="button" data-type="student">
+            <i class="fas fa-graduation-cap"></i>
+            <div>
+              <strong>Student</strong>
+              <span>Take quizzes and track your progress.</span>
+            </div>
+          </button>
+          <button class="account-type-btn" type="button" data-type="teacher">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <div>
+              <strong>Teacher</strong>
+              <span>Create quizzes and manage students.</span>
+            </div>
+          </button>
+        </div>
+
+
+
+
+        <div class="social-login">
+          <button class="social-btn google-btn" type="button">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </button>
+          <button class="social-btn facebook-btn" type="button">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </button>
+        </div>
+
+
+
+
+        <div class="auth-separator">
+          <span>OR</span>
+        </div>
+
+        <!-- Signup Form -->
+        <form class="auth-form" id="signupForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="fullname" name="fullname" placeholder="John Doe" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="John Doe" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-submit-btn">Sign Up</button>
+        </form>
+
+        <!-- Sign In Link -->
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html">Sign In</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/index.js"></script>
+</body>
+</html>
+

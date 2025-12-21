@@ -1,4 +1,3 @@
-// JavaScript for interactive elements
 document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -25,35 +24,44 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Animated counter for students
   const counter = document.querySelector('.counter');
-  const target = parseInt(counter.getAttribute('data-count'));
-  let count = 0;
-  const increment = target / 200;
-  
-  function updateCounter() {
-    if (count < target) {
-      count += increment;
-      counter.textContent = Math.floor(count);
-      setTimeout(updateCounter, 10);
-    } else {
-      counter.textContent = target;
-    }
-  }
+  if (counter) {
+    const target = parseInt(counter.getAttribute('data-count'));
+    let count = 0;
+    const increment = target / 200;
     
-  // Start counter when element is in viewport
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        updateCounter();
-        observer.unobserve(entry.target);
+    function updateCounter() {
+      if (count < target) {
+        count += increment;
+        counter.textContent = Math.floor(count);
+        setTimeout(updateCounter, 10);
+      } else {
+        counter.textContent = target;
       }
-    });
-  }, { threshold: 0.5 });
+    }
+      
+    // Start counter when element is in viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(counter);
+  }
+
+
+
+
+
+
   
-  observer.observe(counter);
-  
-  // Search button functionality
+  // Search button functionality not yet functional
   const searchBtn = document.querySelector('.search-btn');
-  searchBtn.addEventListener('click', function() {
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
     searchInput.placeholder = 'Search quizzes...';
@@ -75,27 +83,40 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.focus();
     searchBtn.style.display = 'none';
     
-    // Handle search input
     searchInput.addEventListener('keyup', function(e) {
       if (e.key === 'Enter') {
         alert(`Searching for: "${searchInput.value}"`);
       }
     });
       
-    // Return to button when input loses focus
     searchInput.addEventListener('blur', function() {
       if (searchInput.value.trim() === '') {
         parent.removeChild(searchInput);
         searchBtn.style.display = 'inline-block';
       }
     });
-  });
+  }
+
+
+
+
+
+
+
     
   // Request button functionality
   const requestBtn = document.querySelector('.request-btn');
-  requestBtn.addEventListener('click', function() {
-    alert('Request feature: This would open a request form in a real implementation.');
-  });
+  if (requestBtn) {
+    requestBtn.addEventListener('click', function() {
+      alert('Request feature: This would open a request form in a real implementation.');
+    });
+  }
+
+
+
+
+
+
   
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -114,6 +135,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+
+
+
+
+
+
     
   // Add hover effect to category and feature cards
   const cards = document.querySelectorAll('.category-card, .feature-card');
@@ -127,8 +155,58 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
     
+
+
+
+
+
+
+
+
   // Print functionality
   window.addEventListener('beforeprint', function() {
     console.log('Printing page...');
   });
+  
+
+
+
+  // not yet functional
+  // Account type selection for signup page
+  const accountTypeButtons = document.querySelectorAll('.account-type-btn');
+  accountTypeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      accountTypeButtons.forEach(btn => btn.classList.remove('active'));
+      // Add active class to clicked button
+      this.classList.add('active');
+    });
+  });
+  
+
+
+
+
+
+
+
+  // Form submission handlers not yet functional
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would normally send the data to a server
+      alert('Login functionality would be implemented here!');
+    });
+  }
+  
+  const signupForm = document.getElementById('signupForm');
+  if (signupForm) {
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const activeType = document.querySelector('.account-type-btn.active');
+      const accountType = activeType ? activeType.getAttribute('data-type') : 'student';
+      alert(`Signup functionality would be implemented here! Account type: ${accountType}`);
+    });
+  }
 });
