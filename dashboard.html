@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Dashboard</title>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-brain"></i>
+            </div>
+            <h3>Loading Dashboard...</h3>
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container" id="dashboard-container" style="display: none;">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <!-- Logo -->
+            <div class="logo">
+                <h1><i class="fas fa-brain"></i> QuizMaster</h1>
+            </div>
+
+            <!-- User Profile Summary -->
+            <div class="user-summary" id="user-summary">
+                <!-- Dynamic content from userManager -->
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="main-nav">
+                <div class="nav-section">
+                    <h3 class="nav-title">Dashboard</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item active" data-page="dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </li>
+                        <li class="nav-item" data-page="quizzes">
+                            <i class="fas fa-question-circle"></i>
+                            <span>My Quizzes</span>
+                            <span class="nav-badge" id="my-quizzes-count">0</span>
+                        </li>
+                        <li class="nav-item" data-page="students" id="students-nav-item">
+                            <i class="fas fa-users"></i>
+                            <span>Students</span>
+                            <span class="nav-badge" id="students-count">0</span>
+                        </li>
+                        <li class="nav-item" data-page="courses">
+                            <i class="fas fa-book"></i>
+                            <span>Courses</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-title">Tools</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-page="analytics">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Analytics</span>
+                        </li>
+                        <li class="nav-item" data-page="reports">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Reports</span>
+                        </li>
+                        <li class="nav-item" data-page="calendar">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Calendar</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="nav-title">Settings</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-page="profile">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </li>
+                        <li class="nav-item" data-page="account">
+                            <i class="fas fa-cog"></i>
+                            <span>Account</span>
+                        </li>
+                        <li class="nav-item" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- User Status -->
+            <div class="user-status">
+                <div class="status-indicator online"></div>
+                <span>Online</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="main-header">
+                <!-- Hamburger Menu (Mobile) -->
+                <button class="hamburger-menu" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Welcome Message -->
+                <div class="welcome-message">
+                    <h2 id="welcome-user">Welcome back!</h2>
+                    <p id="welcome-role">Here's what's happening</p>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <!-- Notifications -->
+                    <div class="notifications" id="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notification-count">0</span>
+                    </div>
+
+                    <!-- Search Box -->
+                    <div class="search-box desktop-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search quizzes, students, courses..." id="search-input">
+                    </div>
+
+                    <!-- Create Button (Conditional) -->
+                    <button class="create-quiz-btn" id="create-quiz-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Create</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content" id="dashboard-content">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+
+            <!-- Different Views (Initially Hidden) -->
+            <div class="view-content" id="view-content" style="display: none;">
+                <!-- Views will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals will be added dynamically -->
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/dashboard/auth.js"></script>
+    <script src="assets/js/dashboard/userManager.js"></script>
+    <script src="assets/js/dashboard/quizManager.js"></script>
+    <script src="assets/js/dashboard/app.js"></script>
+
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const auth = new AuthManager();
+            
+            if (!auth.isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load dashboard after a brief delay
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('dashboard-container').style.display = 'flex';
+                
+                // Initialize dashboard
+                const app = new QuizPlatform();
+                app.initialize();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

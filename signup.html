@@ -3,117 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - QuizMaster</title>
+    <title>QuizMaster - Register</title>
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="auth-page">
-  <div class="auth-container">
-    <div class="auth-branding">
-      <div class="auth-logo">Quiz<span>Master</span></div>
-      <div class="auth-grid-pattern"></div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Logo -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>QuizMaster</h1>
+                </div>
+                <h2>Create Account</h2>
+                <p>Join our learning community</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form class="auth-form" id="register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">
+                            <i class="fas fa-user"></i> First Name
+                        </label>
+                        <input type="text" id="first-name" placeholder="Bah" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last-name">
+                            <i class="fas fa-user"></i> Last Name
+                        </label>
+                        <input type="text" id="last-name" placeholder="Dieudonne" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="reg-email" placeholder="bahdieudonne48@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="reg-password" placeholder="Create a password" required>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text">Password strength</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-role">
+                        <i class="fas fa-user-tag"></i> I want to join as
+                    </label>
+                    <select id="user-role" required>
+                        <option value="">Select role</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-bio">
+                        <i class="fas fa-edit"></i> Bio (Optional)
+                    </label>
+                    <textarea id="user-bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" required>
+                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-auth">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+
+                <div class="auth-divider">
+                    <span>Already have an account?</span>
+                </div>
+
+                <a href="login.html" class="btn-secondary-auth">
+                    <i class="fas fa-sign-in-alt"></i> Sign In Instead
+                </a>
+            </form>
+        </div>
+
+        <!-- Features List -->
+        <div class="features-list">
+            <h4><i class="fas fa-star"></i> Why Join QuizMaster?</h4>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Create and share quizzes</li>
+                <li><i class="fas fa-check-circle"></i> Track student progress</li>
+                <li><i class="fas fa-check-circle"></i> Interactive learning experience</li>
+                <li><i class="fas fa-check-circle"></i> Real-time analytics</li>
+                <li><i class="fas fa-check-circle"></i> Mobile-friendly platform</li>
+            </ul>
+        </div>
     </div>
 
+    <!-- JavaScript -->
+    <script src="assets/js/dashboard/auth.js"></script>
+    <script>
+        // Password strength indicator
+        document.getElementById('reg-password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+            
+            let strength = 0;
+            let color = '#ef4444';
+            let text = 'Weak';
+            
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            if (strength === 0) {
+                color = '#ef4444';
+                text = 'Weak';
+            } else if (strength <= 2) {
+                color = '#f59e0b';
+                text = 'Fair';
+            } else if (strength <= 3) {
+                color = '#10b981';
+                text = 'Good';
+            } else {
+                color = '#3b82f6';
+                text = 'Strong';
+            }
+            
+            strengthBar.style.width = (strength * 25) + '%';
+            strengthBar.style.background = color;
+            strengthText.textContent = text;
+            strengthText.style.color = color;
+        });
 
-
-
-    <div class="auth-form-container">
-      <div class="auth-form-card">
-        <h1 class="auth-title">Create Account</h1>
-        <p class="auth-subtitle">Choose your account type and start your journey with us.</p>
-
-
-
-
-        <div class="account-type-selection">
-          <button class="account-type-btn active" type="button" data-type="student">
-            <i class="fas fa-graduation-cap"></i>
-            <div>
-              <strong>Student</strong>
-              <span>Take quizzes and track your progress.</span>
-            </div>
-          </button>
-          <button class="account-type-btn" type="button" data-type="teacher">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <div>
-              <strong>Teacher</strong>
-              <span>Create quizzes and manage students.</span>
-            </div>
-          </button>
-        </div>
-
-
-
-
-        <div class="social-login">
-          <button class="social-btn google-btn" type="button">
-            <i class="fab fa-google"></i>
-            <span>Google</span>
-          </button>
-          <button class="social-btn facebook-btn" type="button">
-            <i class="fab fa-facebook-f"></i>
-            <span>Facebook</span>
-          </button>
-        </div>
-
-
-
-
-        <div class="auth-separator">
-          <span>OR</span>
-        </div>
-
-        <!-- Signup Form -->
-        <form class="auth-form" id="signupForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fullname">Full Name</label>
-              <div class="input-wrapper">
-                <i class="fas fa-user"></i>
-                <input type="text" id="fullname" name="fullname" placeholder="John Doe" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="username">Username</label>
-              <div class="input-wrapper">
-                <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" placeholder="John Doe" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <div class="input-wrapper">
-              <i class="fas fa-envelope"></i>
-              <input type="email" id="email" name="email" placeholder="name@example.com" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div class="input-wrapper">
-              <i class="fas fa-lock"></i>
-              <input type="password" id="password" name="password" placeholder="••••••••" required>
-            </div>
-          </div>
-
-          <button type="submit" class="auth-submit-btn">Sign Up</button>
-        </form>
-
-        <!-- Sign In Link -->
-        <div class="auth-footer">
-          <p>Already have an account? <a href="login.html">Sign In</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/js/index.js"></script>
+        // Registration form submission
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const role = document.getElementById('user-role').value;
+            const bio = document.getElementById('user-bio').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (!role) {
+                alert('Please select a role');
+                return;
+            }
+            
+            // Register user
+            const auth = new AuthManager();
+            const user = auth.register(firstName, lastName, email, password, role, bio);
+            
+            if (user) {
+                // Store in localStorage
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
 </body>
 </html>
-
